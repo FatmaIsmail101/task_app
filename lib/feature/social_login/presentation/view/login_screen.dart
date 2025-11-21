@@ -5,6 +5,7 @@ import 'package:task_essac/core/notification/notification.dart';
 import 'package:task_essac/core/reusable_widget/buttons.dart';
 import 'package:task_essac/core/routes/route_name.dart';
 
+import '../../../../core/services/facebook_login.dart';
 import '../../../../core/services/google_sign_in.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -21,6 +22,12 @@ class LoginScreen extends StatelessWidget {
               GoogleSingInAuthCustom.loginWithGoogle(context);
             },
             text: "Sign In With Google",
+          ),
+          Button(
+            onPressed: () async {
+              FacebookLogin.loginWithFacebook(context);
+            },
+            text: "Sign In With Facebook",
           ),
         ],
       ),

@@ -6,25 +6,28 @@ class BlueToothProvider extends ChangeNotifier{
   List<BluetoothDevice>bluetoothDevices=[];
   BluetoothDevice?selectedBluetooth;
 
-  Future<void>scanDevices()async{
-    await AppPermissions.requestBluetoothPermission();
-    isScanning=true;
-    notifyListeners();
-    try{
-      final flutterBluetooth=FlutterBluePlus.startScan(timeout: Duration(seconds: 2));
+  Future<void> scanDevices() async {
+    try {
+      await AppPermissions.requestBluetoothPermission();
+      isScanning = true;
+      bluetoothDevices.clear();
+      notifyListeners();
 
-      FlutterBluePlus.startScan(timeout: const Duration(seconds: 4));
+      FlutterBluePlus.startScan(timeout: Duration(seconds: 2));
+
       FlutterBluePlus.scanResults.listen((results) {
-      final  bluetoothDevices = results.map((r) => r.device).toSet().toList();
-
+        bluetoothDevices = results.map((r) => r.device).toSet().toList();
         notifyListeners();
       });
-      FlutterBluePlus.stopScan();
 
-    }
-    catch(_){
-       isScanning=false;
-       notifyListeners();
+      FlutterBluePlus.isScanning.listen((event) {
+        isScanning = event;
+        notifyListeners();
+      });
+    } catch (e) {
+      isScanning = false;
+      notifyListeners();
+      print('Bluetooth Scan Error: $e');
     }
   }
   void selectBluetooth(BluetoothDevice device) {

@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
       initialRoute: RouteName.loginScreen,
       routes: {
         RouteName.loginScreen: (context) => LoginScreen(),
-        RouteName.settingScreen:(context)=>SettingScreen(),
+       RouteName.settingScreen:(context)=>SettingScreen(),
         RouteName.webScreen:(context)=>WebViewScreen()
       },
     );
