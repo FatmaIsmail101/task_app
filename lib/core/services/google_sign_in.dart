@@ -43,10 +43,12 @@ class GoogleSingInAuthCustom {
           icon: Icons.check,
         );
 
-        // الانتقال للشاشة التالية
-        Navigator.pushNamed(context, RouteName.settingScreen);
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          RouteName.settingScreen,
+          (route) => false,
+        );
       } else {
-        // المستخدم ألغى أو تسجيل الدخول فشل
         NotificationBar.showNotification(
           message: "Login failed or cancelled",
           type: ContentType.failure,

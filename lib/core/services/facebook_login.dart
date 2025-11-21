@@ -7,15 +7,14 @@ import '../notification/notification.dart';
 import '../routes/route_name.dart';
 
 class FacebookLogin {
-  static Future<UserCredential> signInWithFacebook() async {
+  static Future<UserCredential?> signInWithFacebook() async {
     // Trigger the sign-in flow
     final LoginResult loginResult = await FacebookAuth.instance.login();
 
     // Create a credential from the access token
     final OAuthCredential facebookAuthCredential =
         FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
-    print(facebookAuthCredential.idToken);
-    // Once signed in, return the UserCredential
+
     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 
@@ -24,7 +23,6 @@ class FacebookLogin {
       final userCredential = await signInWithFacebook();
 
       if (userCredential != null) {
-        // تسجيل الدخول نجح
         NotificationBar.showNotification(
           message: "Successfully logged in",
           type: ContentType.success,
@@ -32,11 +30,13 @@ class FacebookLogin {
           icon: Icons.check,
         );
 
-        // الانتقال للشاشة التالية
-        Navigator.pushNamed(context, RouteName.settingScreen);
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          RouteName.settingScreen,
+          (route) => false,
+        );
       }
     } catch (e) {
-      // لو حصل خطأ غير متوقع
       NotificationBar.showNotification(
         message: "An error occurred: $e",
         type: ContentType.failure,
