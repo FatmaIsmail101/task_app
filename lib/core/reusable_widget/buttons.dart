@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../size_screen/size_config.dart';
 
 class Button extends StatelessWidget {
-  final bool isColor;
+  final Color color;
 
   const Button({
     super.key,
     required this.onPressed,
     required this.text,
-    this.isColor = true,
+    required this.color,
     this.style,
   });
 
@@ -26,13 +26,13 @@ class Button extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(SizeConfig.widthRatio(4)),
-          side: BorderSide(color: Color(0xFF8875FF)),
+          side: BorderSide(color: color),
         ),
         padding: EdgeInsets.symmetric(
           vertical: SizeConfig.heightRatio(12),
           horizontal: SizeConfig.widthRatio(24),
         ),
-        backgroundColor: isColor ? Color(0xFF8875FF) : Colors.transparent,
+        backgroundColor: color,
       ),
       child: Text(text, style: style),
     );

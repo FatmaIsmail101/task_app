@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:task_essac/core/permission/permissions.dart';
-class BlueToothProvider extends ChangeNotifier{
-  bool isScanning=false;
-  List<BluetoothDevice>bluetoothDevices=[];
-  BluetoothDevice?selectedBluetooth;
+
+class BlueToothProvider extends ChangeNotifier {
+  bool isScanning = false;
+  List<BluetoothDevice> bluetoothDevices = [];
+  BluetoothDevice? selectedBluetooth;
 
   Future<void> scanDevices() async {
     try {
@@ -30,6 +31,7 @@ class BlueToothProvider extends ChangeNotifier{
       print('Bluetooth Scan Error: $e');
     }
   }
+
   void selectBluetooth(BluetoothDevice device) {
     selectedBluetooth = device;
     notifyListeners();

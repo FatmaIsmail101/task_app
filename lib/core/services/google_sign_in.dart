@@ -45,8 +45,7 @@ class GoogleSingInAuthCustom {
 
         // الانتقال للشاشة التالية
         Navigator.pushNamed(context, RouteName.settingScreen);
-      }
-      else {
+      } else {
         // المستخدم ألغى أو تسجيل الدخول فشل
         NotificationBar.showNotification(
           message: "Login failed or cancelled",
@@ -55,7 +54,7 @@ class GoogleSingInAuthCustom {
           icon: Icons.error,
         );
       }
-    }catch (e) {
+    } catch (e) {
       // لو حصل خطأ غير متوقع
       NotificationBar.showNotification(
         message: "An error occurred: $e",
@@ -63,8 +62,6 @@ class GoogleSingInAuthCustom {
         context: context,
         icon: Icons.error,
       );
-
     }
-    }
-
+  }
 }

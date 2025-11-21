@@ -20,36 +20,37 @@ void main() async {
   await Permission.bluetoothScan.request();
   await Permission.bluetoothConnect.request();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await dotenv.load(fileName: "secure.env");
-  runApp(MultiProvider(
+  runApp(
+    MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) {
             final app = InputProvider();
             app.load();
             return app;
-          }),
+          },
+        ),
         ChangeNotifierProvider(
-            create: (_) {
-              final wifi = WifiProvider();
-              wifi.scanDevices();
-              return wifi;
-            }),
+          create: (_) {
+            final wifi = WifiProvider();
+            wifi.scanDevices();
+            return wifi;
+          },
+        ),
         ChangeNotifierProvider(
-            create: (_) {
-              final bluetooth = BlueToothProvider();
-              bluetooth.scanDevices();
-              return bluetooth;
-            }),
-
+          create: (_) {
+            final bluetooth = BlueToothProvider();
+            bluetooth.scanDevices();
+            return bluetooth;
+          },
+        ),
       ],
 
-      child: MyApp()),
+      child: MyApp(),
+    ),
   );
-
 }
 
 class MyApp extends StatelessWidget {
@@ -64,11 +65,9 @@ class MyApp extends StatelessWidget {
       initialRoute: RouteName.loginScreen,
       routes: {
         RouteName.loginScreen: (context) => LoginScreen(),
-       RouteName.settingScreen:(context)=>SettingScreen(),
-        RouteName.webScreen:(context)=>WebViewScreen()
+       RouteName.settingScreen: (context) => SettingScreen(),
+       RouteName.webScreen: (context) => WebViewScreen(),
       },
     );
   }
 }
-
-
