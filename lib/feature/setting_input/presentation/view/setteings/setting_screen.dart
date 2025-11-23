@@ -36,6 +36,15 @@ class SettingScreen extends StatelessWidget {
                   if (value == null || value.isEmpty) {
                     return "Please enter a URL";
                   }
+
+                  final regex = RegExp(
+                    r'^(https?:\/\/)?([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(\/\S*)?$',
+                  );
+
+                  if (!regex.hasMatch(value)) {
+                    return "Invalid URL format";
+                  }
+
                   return null;
                 },
                 controller: urlController,
@@ -134,24 +143,3 @@ class SettingScreen extends StatelessWidget {
     );
   }
 }
-
-/*
-       Expanded(
-                child: DropdownMenuItem(
-                  child: ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      final ssid = wifi.wifiList[index];
-                      return ListTile(
-                        title: Text("${wifi.wifiList[index]}"),
-                        onTap: () {
-                          wifi.selectWifi("$ssid");
-                        },
-                        trailing: wifi.selectedWifi == ssid
-                            ? Icon(Icons.access_time)
-                            : Icon(Icons.add),
-                      );
-                    },
-                  ),
-                ),
-              )
- */
